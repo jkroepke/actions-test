@@ -11,9 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          n=0   
-          until [ $n -ge 5 ]; do    
-            false && break
-            n=$[$n+1]
-            sleep 5
-          done
+          for i in $(seq 1 5); do
+            false && s=0 && break || s=$? && sleep 15;
+          done;
+          (exit $s)
