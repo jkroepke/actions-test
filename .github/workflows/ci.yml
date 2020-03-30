@@ -1,0 +1,19 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          n=0   
+          until [ $n -ge 5 ]; do    
+            exit 1 && break
+            n=$[$n+1]
+            sleep 5
+          done
