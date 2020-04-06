@@ -1,0 +1,16 @@
+name: Node
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - run: which node
+      - run: node --version
+      - run: which python
+      - run: python --version
