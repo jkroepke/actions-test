@@ -17,10 +17,4 @@ jobs:
           - C: "value C"
     steps:
       - run: |
-          echo ${{
-              matrix.env.A != "" && matrix.env.A
-              || (
-                  matrix.env.B != "" && matrix.env.B
-                  || "no value"
-              )
-          }}
+          echo ${{ matrix.env.A != "" && matrix.env.A || ( matrix.env.B != "" && matrix.env.B || "no value" ) }}
