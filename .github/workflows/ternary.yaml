@@ -1,0 +1,26 @@
+name: ternary
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        env:
+          - A: "value A"
+          - B: "value B"
+          - C: "value C"
+    steps:
+      - run: |
+          echo ${{
+              matrix.env.A != "" && matrix.env.A
+              || (
+                  matrix.env.B != "" && matrix.env.B
+                  || "no value"
+              )
+          }}
