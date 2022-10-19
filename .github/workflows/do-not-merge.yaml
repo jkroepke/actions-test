@@ -1,12 +1,24 @@
-name: Merge Check
-
+name: Label Checker
 on:
   pull_request:
-    types: [ labeled, unlabeled ]
+    types:
+      - opened
+      - synchronize
+      - reopened
+      - labeled
+      - unlabeled
 
 jobs:
   check:
-    if: ${{ github.event.label.name == 'do-not-merge' }}
     runs-on: ubuntu-latest
     steps:
-    - run: exit 1
+      - uses: actions/github-script@v6
+        with:
+          script: |
+            const labels = (await github.rest.issues.listLabelsOnIssue({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+            })).map(label => label.name)
+            
+            if (labels.includes("do-not-merge")) core.setFailed("do-not-merge label exists")
